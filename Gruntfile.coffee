@@ -93,7 +93,7 @@ module.exports = (grunt) ->
 				options:
 					module: "templates"
 			front:
-				src: "<%= config.paths.front.app %>/**/*.html"
+				src: "<%= config.paths.front.app %>/src/**/*.html"
 				dest: "<%= config.paths.front.tmp %>/scripts/templates.js"
 				options:
 					module: "templates"
@@ -142,7 +142,7 @@ module.exports = (grunt) ->
 					'<%= config.paths.front.tmp %>/scripts/templates.js'
 					'<%= config.paths.front.tmp %>/scripts/bootstrap.templates.js'
 					'<%= config.paths.front.tmp %>/scripts/common/**/*.js'
-					'<%= config.paths.front.tmp %>/scripts/wallet/**/*.js'
+					'<%= config.paths.front.tmp %>/scripts/dashboard/**/*.js'
 				]
 
 		# Replace tokens in scripts for paths and configuration purposes
@@ -194,7 +194,7 @@ module.exports = (grunt) ->
 					'Gruntfile.coffee'
 				]
 				tasks: [
-					'test'
+					#'test'
 					'prepareAssets'
 				]
 				options:
@@ -271,6 +271,7 @@ module.exports = (grunt) ->
 		(env) ->
 			tasks = [
 				"shell:startServer"
+				"open:front"
 			]
 			grunt.task.run tasks
 

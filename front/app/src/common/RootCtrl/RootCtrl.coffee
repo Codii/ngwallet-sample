@@ -3,8 +3,8 @@ angular.module('controllers').controller 'RootCtrl', [
 	'$scope'
 	'$rootScope'
 	'$injector'
-	'isAuthenticated'
 	'$state'
-	($scope, $rootScope, $injector, isAuthenticated, $state) ->
+	($scope, $rootScope, $injector, $state) ->
+		$state.go 'root.index'
 ]
 

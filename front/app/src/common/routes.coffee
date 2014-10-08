@@ -12,5 +12,10 @@ angular.module("app").config([
 					templateUrl : 'RootCtrl'
 					controller  : 'RootCtrl'
 
+		$stateProvider.state 'root.index',
+			url         : '/'
+			templateUrl : 'DashboardCtrl'
+			controller  : 'DashboardCtrl'
+
 		return
 ])
