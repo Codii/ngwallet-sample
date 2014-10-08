@@ -1,5 +1,6 @@
 
 APP_ROOT = __dirname
+SERV_HOSTNAME = "localhost:8002"
 
 config =
 	paths:
@@ -13,8 +14,12 @@ config =
 			lib:     require("path").resolve APP_ROOT, "front/lib"
 			tmp:     require("path").resolve APP_ROOT, "tmp/front"
 			dist:    require("path").resolve APP_ROOT, "static/front"
+		api:
+			scripts: require("path").resolve APP_ROOT, "api"
 	endpoints:
-		api: "http://localhost:8002/api"
+		api: "#{SERV_HOSTNAME}/api"
+	livereload:
+		port: 35729
 
 module.exports = (grunt) ->
 
@@ -56,6 +61,11 @@ module.exports = (grunt) ->
 				cwd:    '<%= config.paths.front.app %>/fonts'
 				src:    ['{,**/}*']
 				dest:   '<%= config.paths.front.dist %>/fonts'
+			apiSource:
+				expand: true
+				cwd:    '<%= config.paths.api.src %>'
+				src:    ['*.txt']
+				dest:   '<%= config.paths.api.dist %>/'
 
 		# Coffee files compilation
 		coffee:
@@ -159,16 +169,16 @@ module.exports = (grunt) ->
 		shell:
 			options:
 				stdout: true
-			reloadnginx:
-				command: './bin/deploy'
+			startServer:
+				command: "php -S #{SERV_HOSTNAME} -t <%= config.paths.front.dist %>"
 				options:
-					async: true
+					async: false
 					stderr: true
 					stdout: true
 
 		open:
 			front:
-				path: "http://localhost:8002"
+				path: "http://#{SERV_HOSTNAME}"
 
 		# Watched files and triggered actions
 		watch:
@@ -193,6 +203,9 @@ module.exports = (grunt) ->
 					livereload: config.livereload.port
 					interval:   500
 
+		concurrent:
+			serveAndWatch: ['serve', 'watch']
+
 	grunt.registerTask 'ngconst', ->
 		_ = require('lodash')
 
@@ -213,9 +226,6 @@ module.exports = (grunt) ->
 			"App":
 				endpoints:
 					api: config.endpoints.api
-				config:
-					apis:
-						envConfig["_global"]?["apis"]
 
 		stringifyObj = (obj, space) ->
 			if _.isUndefined(obj)
@@ -246,15 +256,24 @@ module.exports = (grunt) ->
 	###
 	Task generating front production files. Static folder is ready to use in production after this task.
 	###
-	grunt.registerTask  'serve',
+	grunt.registerTask 'dev',
 		'Configure et deploie client angular',
 		(env) ->
 			tasks = [
 				"prepareAssets"
-				"test"
-				"watch"
+				#"test"
+				"concurrent:serveAndWatch"
 			]
 			grunt.task.run tasks
+
+	grunt.registerTask  'serve',
+		'Configure et deploie client angular',
+		(env) ->
+			tasks = [
+				"shell:startServer"
+			]
+			grunt.task.run tasks
+
 	###
 	Task
 	###

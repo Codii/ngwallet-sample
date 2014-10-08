@@ -9,9 +9,13 @@
   "author": "Cédric Odi",
   "license": "ISC",
   "devDependencies": {
+    "cheerio": "",
+    "coffee-script": "",
+    "connect-livereload": "",
     "grunt": "^0.4.5",
+    "grunt-angular-templates": "^0.5.7",
     "grunt-cli": "",
-    "grunt-concurrent": "",
+    "grunt-concurrent": "^1.0.0",
     "grunt-connect-proxy": "",
     "grunt-contrib-clean": "",
     "grunt-contrib-coffee": "",
@@ -45,13 +49,10 @@
     "karma-script-launcher": "",
     "less": "",
     "load-grunt-tasks": "",
+    "lodash": "^2.4.1",
     "optimist": "",
     "protractor": "",
     "source-map": "",
-    "time-grunt": "",
-    "cheerio": "",
-    "coffee-script": "",
-    "connect-livereload": ""
-
+    "time-grunt": ""
   }
 }

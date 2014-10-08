@@ -14,18 +14,13 @@ angular.module 'controllers', ['mixins', 'models', 'services']
 # Loads application modules
 ###
 app = angular.module 'app', [
-
-	###
 	# External modules dependancies
-	###
 	'ngCookies'
 	'ui.bootstrap'
 	'ui.utils'
 	'ui.router'
 
-	###
 	# Internal modules dependancies
-	###
 	'services'
 	'filters'
 	'models'
