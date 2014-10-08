@@ -61,11 +61,6 @@ module.exports = (grunt) ->
 				cwd:    '<%= config.paths.front.app %>/fonts'
 				src:    ['{,**/}*']
 				dest:   '<%= config.paths.front.dist %>/fonts'
-			apiSource:
-				expand: true
-				cwd:    '<%= config.paths.api.src %>'
-				src:    ['*.txt']
-				dest:   '<%= config.paths.api.dist %>/'
 
 		# Coffee files compilation
 		coffee:
@@ -134,9 +129,6 @@ module.exports = (grunt) ->
 					'<%= config.paths.front.lib %>/modernizr/modernizr.js'
 					'<%= config.paths.front.lib %>/moment/moment.js'
 					'<%= config.paths.front.lib %>/moment/lang/fr.js'
-					'<%= config.paths.front.lib %>/ng-file-upload/angular-file-upload-shim.js'
-					'<%= config.paths.front.lib %>/ng-file-upload/angular-file-upload.js'
-					'<%= config.paths.front.lib %>/angular-easyfb/angular-easyfb.js'
 					'<%= config.paths.front.tmp %>/scripts/app.js'
 					'<%= config.paths.front.tmp %>/scripts/Config.js'
 					'<%= config.paths.front.tmp %>/scripts/templates.js'
@@ -148,11 +140,18 @@ module.exports = (grunt) ->
 		# Replace tokens in scripts for paths and configuration purposes
 		replace:
 			livereload:
-				src: ['<%= appConfig.ng.dist %>/app.html'],
+				src: ['<%= config.paths.front.dist %>/index.html'],
 				overwrite: true,
 				replacements: [{
 					from: /<!-- LIVERELOAD -->/g,
-					to: """\n<script src="/livereload.js"></script>"""
+					to: '<script src="//localhost:<%= config.livereload.port %>/livereload.js"></script>'
+				}]
+			removeLivereload:
+				src: ['<%= config.paths.front.dist %>/index.html'],
+				overwrite: true,
+				replacements: [{
+					from: /<!-- LIVERELOAD -->/g,
+					to: ""
 				}]
 
 		karma:
@@ -200,7 +199,8 @@ module.exports = (grunt) ->
 				options:
 					atBegin:    true
 					interrupt:  false
-					livereload: config.livereload.port
+					livereload:
+						port: config.livereload.port
 					interval:   500
 
 		concurrent:
@@ -278,15 +278,20 @@ module.exports = (grunt) ->
 	###
 	Task
 	###
-	grunt.registerTask  'prepareAssets', [
-		"clean"
-		"coffee"
-		"less"
-		"copy"
-		"ngtemplates"
-		"ngconst"
-		"concat"
-	]
+	grunt.registerTask  'prepareAssets', 'Makes all the static ready to deploy', (env) ->
+
+		tasks = [
+			"clean"
+			"coffee"
+			"less"
+			"copy"
+			"replace:livereload"
+			"ngtemplates"
+			"ngconst"
+			"concat"
+		]
+
+		grunt.task.run tasks
 
 	grunt.registerTask 'test', ['test:unit']
 	grunt.registerTask 'test:unit', ['karma:frontUnit']
