@@ -1,0 +1,20 @@
+# Mac folder settings
+*.DS_Store
+
+# Ignore all logfiles and tempfiles.
+/tmp
+log/*
+
+# Temporary files
+*~
+
+bower_components
+/node_modules
+
+/front/lib
+
+*.sublime-workspace
+
+log
+tmp
+static
