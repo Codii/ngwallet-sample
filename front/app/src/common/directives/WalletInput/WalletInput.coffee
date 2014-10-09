@@ -31,4 +31,6 @@ angular.module('directives').directive 'walletInput', [
 				$scope.submit = ->
 					$wallet.addExpense(angular.copy($scope.expense))
 					$scope.resetInput()
+					if modalInstance
+						modalInstance.close()
 ]

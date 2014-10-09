@@ -23,4 +23,7 @@ angular.module('services').factory 'WalletService', [
 			getExpenses: ->
 				$storage.get().getWalletExpenses()
 
+			reset: ->
+				$storage.get().resetWalletAccount()
+
 ]

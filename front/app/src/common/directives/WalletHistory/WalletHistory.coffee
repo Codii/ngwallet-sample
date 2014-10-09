@@ -17,7 +17,6 @@ angular.module('directives').directive 'walletHistory', [
 				$scope.expenses = []
 
 				refresh = ->
-					console.log "refreshing ..."
 					$wallet.getExpenses().then (expenses) -> $scope.expenses = expenses
 
 				$rootScope.$on "storage:persist", -> refresh()

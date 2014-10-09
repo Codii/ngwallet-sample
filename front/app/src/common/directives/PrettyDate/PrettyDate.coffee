@@ -6,7 +6,7 @@ module.directive 'prettyDate', [
 	($timeout) ->
 		link = ($scope, elem, attrs) ->
 			setDate = ->
-				if scope.date?
+				if $scope.date?
 					momentDate = moment($scope.date.getTime())
 
 					if attrs.notimezone?

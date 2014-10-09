@@ -4,7 +4,10 @@ angular.module('controllers').controller 'RootCtrl', [
 	'$rootScope'
 	'$injector'
 	'$state'
-	($scope, $rootScope, $injector, $state) ->
+	'WalletService'
+	($scope, $rootScope, $injector, $state, $wallet) ->
 		$state.go 'root.index'
+
+		$scope.resetData = -> $wallet.reset()
 ]
 

@@ -5,7 +5,7 @@
 			<div class="text-center">History empty</div>
 		</div>
 		<div ng-switch-default>
-			<div class="expense-item row" ng-repeat="expense in expenses">
+			<div class="expense-item row" ng-repeat="expense in expenses track by $index">
 				<div class="col-md-8">
 					<span ng-bind="expense.title" class="expense-title"></span><br />
 					<span class="expense-item-date" pretty-date date="expense.date"></span>

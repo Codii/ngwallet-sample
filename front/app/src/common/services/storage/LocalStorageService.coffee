@@ -30,22 +30,22 @@ angular.module('services').factory 'LocalStorageService', [
 				{
 					title: 'Deposit'
 					amount: 150
-					date: new Date()
+					date: moment().add(-1*(Math.round(Math.random()*10)), 'days').toDate()
 				}
 				{
 					title: 'House Rent'
 					amount: -850
-					date: new Date()
+					date: moment().add(-1*(Math.round(Math.random()*10)), 'days').toDate()
 				}
 				{
 					title: 'Work Angel October Paycheck'
 					amount: 7250.25
-					date: new Date()
+					date: moment().add(-1*(Math.round(Math.random()*10)), 'days').toDate()
 				}
 				{
 					title: 'Gaumont Theater tickets'
 					amount: -68
-					date: new Date()
+					date: moment().add(-1*(Math.round(Math.random()*10)), 'days').toDate()
 				}
 			]
 
@@ -90,7 +90,6 @@ angular.module('services').factory 'LocalStorageService', [
 				# reset store
 				db = expenses: [], accounts: [balance: 0]
 
-				initDummy()
 				persistDatabase()
 
 				df.resolve(db.accounts[0])
