@@ -122,6 +122,7 @@ module.exports = (grunt) ->
 					'<%= config.paths.front.lib %>/angular/angular.js'
 					'<%= config.paths.front.lib %>/angular-cookies/angular-cookies.js'
 					'<%= config.paths.front.lib %>/angular-bootstrap/ui-bootstrap.js'
+					'<%= config.paths.front.lib %>/angular-bootstrap/ui-bootstrap-tpls.js'
 					'<%= config.paths.front.lib %>/angular-ui/build/angular-ui.js'
 					'<%= config.paths.front.lib %>/angular-ui/build/angular-ui-shiv.js'
 					'<%= config.paths.front.lib %>/angular-ui-utils/ui-utils.js'

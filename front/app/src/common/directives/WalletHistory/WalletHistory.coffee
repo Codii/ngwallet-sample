@@ -13,7 +13,6 @@ angular.module('directives').directive 'walletHistory', [
 			replace     : true
 			link: ($scope, el, attrs) ->
 
-				console.log("test")
 				$scope.expenses = []
 
 				$rootScope.$on "wallet:update", ->
