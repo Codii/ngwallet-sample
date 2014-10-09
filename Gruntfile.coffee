@@ -212,7 +212,7 @@ module.exports = (grunt) ->
 					interval:   500
 
 		concurrent:
-			serveAndWatch: ['serve', 'watch']
+			serveAndWatch: ['serve', 'watch', 'open:front']
 
 	grunt.registerTask 'ngconst', ->
 		_ = require('lodash')
@@ -270,6 +270,15 @@ module.exports = (grunt) ->
 			tasks = [
 				"prepareAssets"
 				#"test"
+				"concurrent:serveAndWatch"
+			]
+			grunt.task.run tasks
+
+	grunt.registerTask 'default',
+		'Configure et deploie client angular',
+		(env) ->
+			tasks = [
+				"prepareAssets"
 				"concurrent:serveAndWatch"
 			]
 			grunt.task.run tasks
