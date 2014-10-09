@@ -277,7 +277,7 @@ module.exports = (grunt) ->
 		'Configure et deploie client angular',
 		(env) ->
 			tasks = [
-				"express:api"
+				"shell:startServer"
 				"open:front"
 			]
 			grunt.task.run tasks
