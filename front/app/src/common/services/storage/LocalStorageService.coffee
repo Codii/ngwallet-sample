@@ -6,29 +6,57 @@ angular.module('services').factory 'LocalStorageService', [
 	($rootScope, $q) ->
 
 		###
-		# This is a dummy implementation of a localstorage based database
+		# This is a dummy implementation of a localstorage based "datastore"
 		# for mockup purposes
 		###
+
+		window.localStorage;
 
 		dbName = 'walletDb'
 
 		db = {}
 
-		if dbName in window.localStorage
-			db = window.localStorage.getItem(dbName)
-		else
-			db = expenses: [], accounts: [balance: 0]
+		updateWalletBalance = ->
+			db.accounts[0].balance = _.reduce(db.expenses, ((s, e) -> s + parseFloat(e.amount)), 0)
 
 		persistDatabase = ->
+			updateWalletBalance()
 			window.localStorage.setItem(dbName, JSON.stringify(db))
+			$rootScope.$broadcast "storage:persist"
 
-		updateWalletBalance = ->
-			db.accounts[0].balance = _.reduce(db.expenses, ((s, e) ->
-				s + parseFloat(e.amount)
-			), 0)
+		initDummy = ->
+			db.expenses = [
+				{
+					title: 'Deposit'
+					amount: 150
+					date: new Date()
+				}
+				{
+					title: 'House Rent'
+					amount: -850
+					date: new Date()
+				}
+				{
+					title: 'Work Angel October Paycheck'
+					amount: 7250.25
+					date: new Date()
+				}
+				{
+					title: 'Gaumont Theater tickets'
+					amount: -68
+					date: new Date()
+				}
+			]
 
-		$rootScope.$on "$routeChangeStart", ->
-			console.log("persisting")
+
+		## Init of datastore
+		_db = window.localStorage.getItem(dbName)
+		debugger
+		if _db
+			db = JSON.parse(_db)
+		else
+			db = expenses: [], accounts: [balance: 0]
+			initDummy()
 			persistDatabase()
 
 		{} =
@@ -42,17 +70,39 @@ angular.module('services').factory 'LocalStorageService', [
 			addWalletExpense: (expense) ->
 				df = $q.defer()
 
+				expense = angular.extend
+					amount: 0
+					date: Date()
+					title: "Untitled"
+				, expense
+
 				db.expenses.push(expense)
-				updateWalletBalance()
+
+				persistDatabase()
 
 				df.resolve(expense)
+
+				df.promise
+
+			resetWalletAccount: ->
+				df = $q.defer()
+
+				# reset store
+				db = expenses: [], accounts: [balance: 0]
+
+				initDummy()
+				persistDatabase()
+
+				df.resolve(db.accounts[0])
 
 				df.promise
 
 			getWalletExpenses: ->
 				df = $q.defer()
 
-				df.resolve(db.expenses)
+				result = _.sortBy(db.expenses, 'date').reverse()
+
+				df.resolve(result)
 
 				df.promise
 

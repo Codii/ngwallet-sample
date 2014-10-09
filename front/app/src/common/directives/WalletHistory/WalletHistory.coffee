@@ -11,13 +11,13 @@ angular.module('directives').directive 'walletHistory', [
 			restrict    : 'E'
 			scope       : false
 			replace     : true
+			templateUrl : 'WalletHistory'
 			link: ($scope, el, attrs) ->
 
 				$scope.expenses = []
 
-				$rootScope.$on "wallet:update", ->
+				refresh = ->
 					$wallet.getExpenses().then (expenses) -> $scope.expenses = expenses
 
-				newEl = angular.element($templateCache.get("WalletHistory"))
-				el.replaceWith $compile(newEl)($scope)
+				$rootScope.$on "storage:persist", -> refresh()
 ]
