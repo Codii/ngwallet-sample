@@ -52,6 +52,7 @@ angular.module('services').factory 'LocalStorageService', [
 
 		## Init of datastore
 		_db = window.localStorage.getItem(dbName)
+		debugger
 		if _db
 			db = JSON.parse(_db)
 		else
