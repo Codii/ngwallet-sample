@@ -2,15 +2,13 @@
 
 	<div ng-switch="expenses.length">
 		<div ng-switch-when="0">
-			<div class="text-center">
-				History empty
-			</div>
+			<div class="text-center">History empty</div>
 		</div>
 		<div ng-switch-default>
 			<div class="expense-item row" ng-repeat="expense in expenses">
 				<div class="col-md-8">
 					<span ng-bind="expense.title" class="expense-title"></span><br />
-					<span class="expense-item-date"></span>
+					<span class="expense-item-date" pretty-date date="expense.date"></span>
 				</div>
 				<div class="col-md-4">
 					<i class="fa fa-eur"></i><span ng-bind="expense.amount | currency : ''" class="expense-item-amount"
