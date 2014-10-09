@@ -1,0 +1,14 @@
+<div class="wallet-history">
+
+	<div ng-switch="expenses.length">
+		<div ng-switch-when="0">
+			Nothing in the history
+		</div>
+		<div ng-switch-default>
+			<div class="expense-item" ng-repeat="expense in expenses">
+				<span ng-bind="expense.title"></span>
+				<span ng-bind="expense.amount"></span>
+			</div>
+		</div>
+	</div>
+</div>
