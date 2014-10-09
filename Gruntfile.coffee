@@ -1,6 +1,7 @@
 
 APP_ROOT = __dirname
-SERV_HOSTNAME = "localhost:8002"
+SERV_PORT = 8002
+SERV_HOSTNAME = "localhost:#{SERV_PORT}"
 
 config =
 	paths:
@@ -175,6 +176,12 @@ module.exports = (grunt) ->
 					stderr: true
 					stdout: true
 
+		express:
+			api:
+				options:
+					port: SERV_PORT
+					script: '<%= config.paths.api.scripts %>/server.js'
+
 		open:
 			front:
 				path: "http://#{SERV_HOSTNAME}"
@@ -270,7 +277,7 @@ module.exports = (grunt) ->
 		'Configure et deploie client angular',
 		(env) ->
 			tasks = [
-				"shell:startServer"
+				"express:api"
 				"open:front"
 			]
 			grunt.task.run tasks

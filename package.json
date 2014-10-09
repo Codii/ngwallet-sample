@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "cheerio": "",
+    "coffee": "0.0.1",
     "coffee-script": "",
     "connect-livereload": "",
     "grunt": "^0.4.5",
@@ -28,6 +29,7 @@
     "grunt-contrib-less": "",
     "grunt-contrib-uglify": "",
     "grunt-contrib-watch": "",
+    "grunt-express": "^1.4.1",
     "grunt-karma": "",
     "grunt-ng-constant": "",
     "grunt-open": "",
