@@ -3,7 +3,8 @@
 angular.module('services').factory 'LocalStorageService', [
 	'$rootScope'
 	'$q'
-	($rootScope, $q) ->
+	'$timeout'
+	($rootScope, $q, $t) ->
 
 		###
 		# This is a dummy implementation of a localstorage based "datastore"

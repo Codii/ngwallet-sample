@@ -3,12 +3,11 @@ module = angular.module 'directives'
 
 module.directive 'prettyDate', [
 	'$timeout'
-	'I18nSrvc'
-	($timeout, I18n) ->
-		link = (scope, elem, attrs) ->
+	($timeout) ->
+		link = ($scope, elem, attrs) ->
 			setDate = ->
 				if scope.date?
-					momentDate = moment(scope.date.getTime())
+					momentDate = moment($scope.date.getTime())
 
 					if attrs.notimezone?
 						momentDate.subtract("minutes", -(momentDate.zone())) if momentDate.zone() < 0
@@ -19,11 +18,11 @@ module.directive 'prettyDate', [
 					diffWithCurrent = moment.duration(currentDate.valueOf() - momentDate.valueOf())
 
 					if diffWithCurrent.days() < 7 and diffWithCurrent.days() > -7 and diffWithCurrent.months() == 0 and diffWithCurrent.years() == 0
-						scope.shortDate = momentDate.fromNow()
+						$scope.shortDate = momentDate.fromNow()
 					else
-						scope.shortDate = momentDate.format("L")
+						$scope.shortDate = momentDate.format("L")
 
-					scope.fullDate = momentDate.format("LLL")
+					$scope.fullDate = momentDate.format("LLL")
 
 				else
 					$timeout setDate, 200
