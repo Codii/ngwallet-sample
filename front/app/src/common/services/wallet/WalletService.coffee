@@ -11,7 +11,6 @@ angular.module('services').factory 'WalletService', [
 				df = $q.defer()
 
 				$storage.get().getWalletAccount().then (account) ->
-					console.log arguments
 					df.resolve account.balance
 
 				df.promise

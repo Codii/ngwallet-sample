@@ -1,0 +1,9 @@
+<div class="price-input input-append">
+	<input class="price-input-item"
+				 ng-model="amount"
+				 smart-float
+				 type="text"
+				 ng-class="{true: 'positive', false: 'negative'}[amount >= 0]"
+				 />
+	<span class="add-on"><i class="fa fa-eur"></i></span>
+</div>
