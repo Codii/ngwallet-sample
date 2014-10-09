@@ -1,12 +1,16 @@
 <div class="dashboard-ctrl">
 	<div class="container">
 
-		<span ng-bind="walletBalance"></span>
-
-		<button class="btn btn-primary" ng-click="addRandomExpense()">Add random expense</button>
+		<header>
+			<div class="text-right">
+				<i class="fa fa-eur"></i><span ng-bind="walletBalance | currency : ''" class="wallet-balance"></span>
+			</div>
+		</header>
 
 		<wallet-history></wallet-history>
 
-		<a wallet-input>New Expense</a>
+		<div class="text-center">
+			<a wallet-input>New Expense</a>
+		</div>
 	</div>
 </div>
