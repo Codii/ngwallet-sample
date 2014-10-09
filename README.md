@@ -8,7 +8,7 @@ Currently all the persistence is managed with `localstorage`. Other storage syst
 Installation
 =====
 
-You need `node` to make it work.
+You need `npm` and `bower` to deploy the app locally.
 
 `npm install && bower install`
 
