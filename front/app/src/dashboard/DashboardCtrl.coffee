@@ -14,7 +14,7 @@ angular.module('controllers').controller 'DashboardCtrl', [
 
 		$scope.refreshBalance()
 
-		$scope.$on "wallet:update", ->
+		$scope.$on "storage:persist", ->
 			$scope.refreshBalance()
 
 		$scope.addRandomExpense = ->

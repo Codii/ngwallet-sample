@@ -4,9 +4,9 @@ angular.module('directives').directive 'walletHistory', [
 	'$rootScope'
 	'$compile'
 	'$modal'
-	'$templateCache'
+	'$timeout'
 	'WalletService'
-	($rootScope, $compile, $modal, $templateCache, $wallet) ->
+	($rootScope, $compile, $modal, $t, $wallet) ->
 		{} =
 			restrict    : 'E'
 			scope       : false
@@ -17,7 +17,10 @@ angular.module('directives').directive 'walletHistory', [
 				$scope.expenses = []
 
 				refresh = ->
+					console.log "here refreshing"
 					$wallet.getExpenses().then (expenses) -> $scope.expenses = expenses
 
-				$rootScope.$on "storage:persist", -> refresh()
+				$t -> refresh()
+
+				$scope.$on "storage:persist", -> refresh()
 ]
